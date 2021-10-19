@@ -1,18 +1,9 @@
-import { Component } from 'react';
+// import { Component } from 'react';
 import s from './ImageGalleryItem.module.css';
 import PropTypes from 'prop-types';
 
-export class ImageGalleryItem extends Component {
-    state = {
-        image: '',
-        modalImage: '',
-        description: '',
-        onModalClick: '',
-        // status: 'idle',
-    };
-
-    render() {
-        const { image, modalImage, description, onModalClick } = this.props;
+function  ImageGalleryItem ({ image, modalImage, description, onModalClick }) {
+ 
         return (
             <li className={s.ImageGalleryItem} onClick={onModalClick}>
 
@@ -23,7 +14,7 @@ export class ImageGalleryItem extends Component {
             </li>
         );
     }
-}
+
 ImageGalleryItem.propTypes = {
     image: PropTypes.string.isRequired,
     modalImage: PropTypes.string.isRequired,

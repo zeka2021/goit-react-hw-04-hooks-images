@@ -1,48 +1,44 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import s from './Modal.module.css';
 import PropTypes from 'prop-types';
 
-class Modal extends Component {
-  state = {
-    onModalClick: '',
-    currentImage: '',
-  };
+function Modal({ onModalClick, currentImage  }){
+  
+  useEffect(() => {
+    window.addEventListener('keydown', closeModalByEsc);
 
-  componentDidMount() {
-    window.addEventListener('keydown', this.closeModalByEsc);
-  }
+    return () => {
+      window.removeEventListener('keydown', closeModalByEsc);
+    };
+  });
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.closeModalByEsc);
-  }
-
-  closeModalByEsc = e => {
+  const closeModalByEsc = e => {
     if (e.code !== 'Escape') {
       return;
     }
 
-    this.props.onModalClick();
+    onModalClick();
   };
 
-  closeModalByBackdropClick = e => {
+  const closeModalByBackdropClick = e => {
     if (e.currentTarget === e.target) {
-      this.props.onModalClick();
+      onModalClick();
     }
   };
 
-  render() {
+  
     return (
-      <div className={s.Overlay} onClick={this.closeModalByBackdropClick}>
+      <div className={s.Overlay} onClick={closeModalByBackdropClick}>
         <div className={s.Modal}>
           <img
-            src={this.props.currentImage.largeImageURL}
-            alt={this.props.currentImage.tags.split(',')[0]}
+            src={currentImage.largeImageURL}
+            alt={currentImage.tags.split(',')[0]}
           />
         </div>
       </div>
     );
   }
-}
+
 Modal.propTypes = {
   onModalClick: PropTypes.func.isRequired,
   currentImage: PropTypes.object.isRequired,

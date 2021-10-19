@@ -1,19 +1,17 @@
-import { Component } from 'react';
+// import { Component } from 'react';
 import s from './Button.module.css';
 import PropTypes from 'prop-types';
 
-class Button extends Component {
-  state = {
-    onSearch: '',
-  };
+function Button({ onSearch }) {
+  
 
-  render() {
+ 
     return (
-      <button type="button" className={s.Button} onClick={this.props.onSearch}>
+      <button type="button" className={s.Button} onClick={onSearch}>
         Load more
       </button>
     );
-  }
+  
 }
 Button.propTypes = {
   onSearch: PropTypes.func.isRequired,
